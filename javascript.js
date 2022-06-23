@@ -8,13 +8,11 @@ const gameBoard = (() => {
 
     const addO = () => { gameBoardArray.unshift('O')};
 
-    //add checkWin function that checks winning patterns
     const displayGameBoard = () => {
         for (let x = 0; x < gameBoardArray.length; x++) {
             console.log(`Index ${x} with value ${gameBoardArray[x]}`);
         }
     }
-
         //not sure how to do the win function just yet, putting all winning index into if statements
         //is too much 
     const win = () => {
@@ -66,9 +64,33 @@ const gameFlow = () => {
 };
 
 const displayController = (() => {
-    const {display} = gameFlow();
-       
 
+    const gamebox = document.getElementById("game-box");
+
+    const {display} = gameFlow();
+
+    const createBox = () => {
+        const newBox = document.createElement('div');
+        newBox.classList.add('ttt-box');
+        gamebox.appendChild(newBox);
+    }
+
+    const setBoxes = () => {
+        for (let x = 0; x < 9; x++) {
+            createBox();
+            console.log("x");
+        }
+    }  
+
+    return {
+        setBoxes: setBoxes
+    }
+
+})();
+
+//Use an IIFE to initialize game
+const initializeGame = (() => {
+    displayController.setBoxes();
 })();
 
 const Player = (tag) => {
