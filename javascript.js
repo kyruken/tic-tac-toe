@@ -14,6 +14,16 @@ const gameBoard = (() => {
             console.log(`Index ${x} with value ${gameBoardArray[x]}`);
         }
     }
+
+        //not sure how to do the win function just yet, putting all winning index into if statements
+        //is too much 
+    const win = () => {
+            for (let x  = 0; x < gameBoardArray.length; x++) {
+                if ((gameBoardArray[0] && gameBoardArray[1] && gameBoardArray[2]) == "X") {
+                    console.log("Player 1 wins!");
+                }
+            }
+        }
     return {
         addX: addX,
         addO: addO,
@@ -23,7 +33,7 @@ const gameBoard = (() => {
 })();
 
 //Module for controlling player turn and the game
-const gameFlow = (() => {
+const gameFlow = () => {
     //turnCounter = 1 means player 1's turn, turnCounter = 2 means player 2's turn 
     let turnCounter = 1;
 
@@ -52,6 +62,12 @@ const gameFlow = (() => {
         display: displayPlayerTurn,
         move: playerMove
     }
+
+};
+
+const displayController = (() => {
+    const {display} = gameFlow();
+       
 
 })();
 
