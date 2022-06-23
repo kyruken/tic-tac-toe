@@ -1,16 +1,21 @@
-const gameBoard = ((player1, player2) => {
-    const gameBoardArray = [];
-    //currentPlayer will be 0, other player will be 1 and they switch based on turn
-    var currentPlayer = 0;
-    const addToGameBoard = () => {
-        if (currentPlayer === player1) {
-            gameBoardArray.push('X');
-            
-        }
+//Goal is to have little to no global variables or functions
 
-        else {
-            gameBoardArray.push('O');
+const gameBoard = (() => {
+    const gameBoardArray = [];
+
+    const addX = () => { gameBoardArray.unshift('X')};
+
+    const addO = () => { gameBoardArray.unshift('O')};
+
+    const showGameBoard = () => {
+        for (let x = 0; x < gameBoardArray.length; x++) {
+            console.log(`Index ${x} with value ${gameBoardArray[x]}`);
         }
+    }
+    return {
+        addX: addX,
+        addO: addO,
+        showGameBoard: showGameBoard
     }
 
 })();
