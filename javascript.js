@@ -31,11 +31,11 @@ const gameBoard = (() => {
 })();
 
 //Module for controlling player turn and the game
-const gameFlow = () => {
+const gameFlow = (() => {
     //turnCounter = 1 means player 1's turn, turnCounter = 2 means player 2's turn 
     let turnCounter = 1;
 
-    const displayPlayerTurn = () => {console.log(`It is Player ${turnCounter}'s turn`)}
+    let playerTurn = `It is Player ${turnCounter}'s turn`;
 
     const playerMove = () => {
         if (turnCounter === 1) {
@@ -57,17 +57,28 @@ const gameFlow = () => {
     }
 
     return {
-        display: displayPlayerTurn,
-        move: playerMove
+        move: playerMove,
+        playerTurn: playerTurn
     }
 
-};
+})();
 
 const displayController = (() => {
 
     const gamebox = document.getElementById("game-box");
+    const turnContainer = document.getElementById("turn-display");
 
-    const {display} = gameFlow();
+    const createPlayerTurn = () => {
+        const turnDisplay = document.createElement('div');
+        turnDisplay.classList.add('turn-display');
+        turnDisplay.textContent = gameFlow.playerTurn;
+        turnContainer.appendChild(turnDisplay);
+        
+    }
+
+    const changeTurnDisplay = () => {
+        
+    }
 
     const createBox = () => {
         const newBox = document.createElement('div');
@@ -83,6 +94,7 @@ const displayController = (() => {
     }  
 
     return {
+        createPlayerTurn: createPlayerTurn,
         setBoxes: setBoxes
     }
 
@@ -90,6 +102,7 @@ const displayController = (() => {
 
 //Use an IIFE to initialize game
 const initializeGame = (() => {
+    displayController.createPlayerTurn();
     displayController.setBoxes();
 })();
 
