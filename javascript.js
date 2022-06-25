@@ -30,24 +30,14 @@ const gameBoard = (() => {
 
 })();
 
-//Module for controlling player turn and the game
-const gameFlow = (() => {
-    //turnCounter = 1 means player 1's turn, turnCounter = 2 means player 2's turn 
+const displayController = (() => {
+
+    const gamebox = document.getElementById("game-box");
+    const turnContainer = document.getElementById("turn-display");
+
     let turnCounter = 1;
 
-    let playerTurn = `It is Player ${turnCounter}'s turn`;
-
-    const playerMove = () => {
-        if (turnCounter === 1) {
-            gameBoard.addX();
-            changeTurn();
-        }
-        else {
-            gameBoard.addO();
-            changeTurn();
-        }
-    }
-    const changeTurn = () => {
+    const setTurn = () => {
         if (turnCounter === 1) {
             turnCounter = 2;
         }
@@ -55,34 +45,35 @@ const gameFlow = (() => {
             turnCounter = 1;
         }
     }
-
-    return {
-        move: playerMove,
-        playerTurn: playerTurn
-    }
-
-})();
-
-const displayController = (() => {
-
-    const gamebox = document.getElementById("game-box");
-    const turnContainer = document.getElementById("turn-display");
-
     const createPlayerTurn = () => {
         const turnDisplay = document.createElement('div');
         turnDisplay.classList.add('turn-display');
-        turnDisplay.textContent = gameFlow.playerTurn;
+        turnDisplay.textContent = `It is Player ${turnCounter}'s turn`;
         turnContainer.appendChild(turnDisplay);
         
     }
 
     const changeTurnDisplay = () => {
-        
+        setTurn();
+        turnContainer.textContent = `It is Player ${turnCounter}'s turn`;
     }
+
 
     const createBox = () => {
         const newBox = document.createElement('div');
         newBox.classList.add('ttt-box');
+
+        newBox.addEventListener('click', () => {
+            if (turnCounter === 1) {
+                newBox.textContent = "X";
+            }
+            else {
+                newBox.textContent = "O";
+            }
+            
+            changeTurnDisplay();
+        })
+
         gamebox.appendChild(newBox);
     }
 
@@ -95,7 +86,8 @@ const displayController = (() => {
 
     return {
         createPlayerTurn: createPlayerTurn,
-        setBoxes: setBoxes
+        setBoxes: setBoxes,
+        changeTurn: changeTurnDisplay
     }
 
 })();
