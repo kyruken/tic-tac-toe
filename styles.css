@@ -32,7 +32,12 @@
 
 }
 .ttt-box {
+    align-items: center;
     border: 2px solid black;
+    display: flex;
+    font-size: 55px;
+    justify-content: center;
+
     width: 200px;
     height: auto;
     background-color: rgb(135, 199, 219);

@@ -62,6 +62,7 @@ const displayController = (() => {
     const createBox = () => {
         const newBox = document.createElement('div');
         newBox.classList.add('ttt-box');
+        newBox.textContent = " ";
 
         newBox.addEventListener('click', () => {
             if (turnCounter === 1) {
