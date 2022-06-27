@@ -64,16 +64,21 @@ const displayController = (() => {
         newBox.classList.add('ttt-box');
         newBox.textContent = " ";
 
-        newBox.addEventListener('click', () => {
+        const removeEvent = () => {
+            newBox.removeEventListener('click', setEvent);
+        }
+        const setEvent = () => {
             if (turnCounter === 1) {
                 newBox.textContent = "X";
+                removeEvent();
             }
             else {
                 newBox.textContent = "O";
+                removeEvent();
             }
-            
             changeTurnDisplay();
-        })
+        }
+        newBox.addEventListener('click', setEvent);
 
         gamebox.appendChild(newBox);
     }
