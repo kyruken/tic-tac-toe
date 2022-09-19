@@ -14,21 +14,40 @@ const Player = marker => {
     return {getMarker};
 
 };
-const gameBoard = ((playerMarker) => {
-    const gameBoardArray = [];
+const gameBoard = (() => {
     const gamebox = document.getElementById("game-box");
+    const gameBoardArray = gamebox.querySelectorAll('div');
 
-    gamebox.querySelectorAll('div').forEach(box => {
-        box.addEventListener('click', () => {
-            box.textContent = playerMarker;
-        })
-    })
-
+    return {gameBoardArray}
+    
 })();
 
-const player1 = Player('X');
-console.log(player1.getMarker);
-const player2 = Player('O');
+
+const gameController = (() => {
+    const player1 = Player('X');
+    const player2 = Player('O');
+    let playerTurn = 0;
+
+    const changePlayerTurn = () => playerTurn === 0 ? playerTurn = 1 : playerTurn = 0;
+
+    const markBoard = () => {
+        gameBoard.gameBoardArray.forEach(box => {
+            box.addEventListener('click', () => {
+                if (playerTurn === 0) {
+                    box.textContent = player1.getMarker();
+                    changePlayerTurn();
+                }
+
+                else {
+                    box.textContent = player2.getMarker();
+                    changePlayerTurn();
+                }
+            })
+        })
+    }
+    markBoard();
+
+})();
 
 // const displayController = (() => {
 
