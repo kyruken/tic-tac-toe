@@ -6,59 +6,29 @@
 //when a square is clicked, player will mark it and will turn it into isMarked
 // when a pattern of isMarked is true, look for a winner
 
-const Player = (marker) => {
-    const markSquare = (marker) => {
-        
+const Player = marker => {
+    const getMarker = () => {
+        return marker;
     }
 
+    return {getMarker};
+
 };
-const gameBoard = (() => {
+const gameBoard = ((playerMarker) => {
     const gameBoardArray = [];
     const gamebox = document.getElementById("game-box");
 
-    const createSquare = () => {
-        const newSquare = document.createElement('div');
-        newSquare.classList.add('ttt-box');
-        newSquare.textContent = " ";
-        gamebox.appendChild(newSquare);
-    }
-
-    const generateGameBoard = () => {
-        for (let x = 0; x < 9; x++) {
-            createSquare();
-
-        }
-    }
-
-    return ({generateGameBoard})
-
-    // const addX = () => { gameBoardArray.unshift('X')};
-
-    // const addO = () => { gameBoardArray.unshift('O')};
-
-    // const displayGameBoard = () => {
-    //     for (let x = 0; x < gameBoardArray.length; x++) {
-    //         console.log(`Index ${x} with value ${gameBoardArray[x]}`);
-    //     }
-    // }
-    //     //not sure how to do the win function just yet, putting all winning index into if statements
-    //     //is too much 
-    // const win = () => {
-    //         for (let x  = 0; x < gameBoardArray.length; x++) {
-    //             if ((gameBoardArray[0] && gameBoardArray[1] && gameBoardArray[2]) == "X") {
-    //                 console.log("Player 1 wins!");
-    //             }
-    //         }
-    //     }
-    // return {
-    //     addX: addX,
-    //     addO: addO,
-    //     gameBoardArray: gameBoardArray
-    // }
+    gamebox.querySelectorAll('div').forEach(box => {
+        box.addEventListener('click', () => {
+            box.textContent = playerMarker;
+        })
+    })
 
 })();
 
-gameBoard.generateGameBoard();
+const player1 = Player('X');
+console.log(player1.getMarker);
+const player2 = Player('O');
 
 // const displayController = (() => {
 
