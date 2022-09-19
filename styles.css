@@ -1,3 +1,11 @@
+/* Reset Styles */
+button {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+/* ^ Reset Styles ^ */
 .header {
     background-color: rgb(8, 59, 106);
     font-size: 32px;
@@ -45,4 +53,20 @@
 
 .ttt-box:hover {
     background-color: rgb(114, 174, 193);
+}
+
+.reset-button {
+    align-self: center;
+    background-color:rgb(131, 172, 209);
+    border: 4px solid black;
+    border-radius: 10px;
+    font-weight: 600px;
+    font-size: 28px;
+    margin-top: 20px;
+    height: 75px;
+    width: 200px;
+}
+
+.reset-button:hover {
+    background-color:rgb(106, 139, 168);
 }
