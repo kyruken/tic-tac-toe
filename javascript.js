@@ -6,7 +6,13 @@ const Player = marker => {
         return marker;
     }
 
-    const winGame = () => {
+    const playerMove = (box) => {
+        box.textContent = marker;
+        checkWinGame();
+        return box.textContent;
+    }
+
+    const checkWinGame = () => {
         //All win conditions
         if (gameBoard.gameBoardArray[0].textContent === marker && gameBoard.gameBoardArray[1].textContent === marker &&
         gameBoard.gameBoardArray[2].textContent === marker) {
@@ -49,7 +55,7 @@ const Player = marker => {
 
     }
 
-    return {getMarker, winGame};
+    return {getMarker, playerMove, checkWinGame};
 
 };
 const gameBoard = (() => {
@@ -70,19 +76,14 @@ const gameController = (() => {
 
     const changePlayerTurn = () => playerTurn === 0 ? playerTurn = 1 : playerTurn = 0;
 
+    //If a player wins, all the other boxes get their events removed
+
+    //Currently, boxes have their event removed after they are clicked
     const markBoard = () => {
         gameBoard.gameBoardArray.forEach(box => {
             box.addEventListener('click', function addEvent() {
-            if (playerTurn === 0) {
-                box.textContent = player1.getMarker();
-                player1.winGame();
-            }
-    
-            else {
-                box.textContent = player2.getMarker();
-                player2.winGame();
-            
-            }
+
+            playerTurn === 0 ? player1.playerMove(box) : player2.playerMove(box);
 
             changePlayerTurn();
             box.removeEventListener('click', addEvent);
