@@ -23,8 +23,6 @@ const gameBoard = (() => {
     
 })();
 
-
-//gameController object is dependent on player and gameBoard object
 const gameController = (() => {
     const player1 = Player('X');
     const player2 = Player('O');
@@ -134,93 +132,3 @@ const gameController = (() => {
 
 })();
 
-// const displayController = (() => {
-
-//     const gamebox = document.getElementById("game-box");
-//     const turnContainer = document.getElementById("turn-display");
-//     const resetButton = document.getElementById("reset");
-
-//     let turnCounter = 1;
-
-//     const resetBoard = () => {
-//         for (let x = 0; x < gameBoard.gameBoardArray.length; x++) {
-//             console.log(x);
-//             console.log("what the dog doin");
-//         }
-
-//     }
-
-//     const setTurn = () => {
-//         if (turnCounter === 1) {
-//             turnCounter = 2;
-//         }
-//         else {
-//             turnCounter = 1;
-//         }
-//     }
-//     const createPlayerTurn = () => {
-//         const turnDisplay = document.createElement('div');
-//         turnDisplay.classList.add('turn-display');
-//         turnDisplay.textContent = `It is Player ${turnCounter}'s turn`;
-//         turnContainer.appendChild(turnDisplay);
-        
-//     }
-
-//     const changeTurnDisplay = () => {
-//         setTurn();
-//         turnContainer.textContent = `It is Player ${turnCounter}'s turn`;
-//     }
-
-
-//     const createBox = () => {
-//         const newBox = document.createElement('div');
-//         newBox.classList.add('ttt-box');
-//         newBox.textContent = " ";
-
-//         const removeEvent = () => {
-//             newBox.removeEventListener('click', setEvent);
-//         }
-
-//         const setEvent = () => {
-//             if (turnCounter === 1) {
-//                 newBox.textContent = "X";
-//                 removeEvent();
-//             }
-//             else {
-//                 newBox.textContent = "O";
-//                 removeEvent();
-//             }
-//             changeTurnDisplay();
-//         }
-
-//         newBox.addEventListener('click', setEvent);
-//         gamebox.appendChild(newBox);
-//     }
-
-//     const setBoxes = () => {
-//         for (let x = 0; x < 9; x++) {
-//             createBox();
-//             console.log("x");
-//         }
-//     }  
-
-//     return {
-//         createPlayerTurn: createPlayerTurn,
-//         setBoxes: setBoxes,
-//         changeTurn: changeTurnDisplay,
-//         reset: resetBoard
-//     }
-
-// })();
-
-// //Use an IIFE to initialize game
-// const initializeGame = (() => {
-//     displayController.createPlayerTurn();
-//     displayController.setBoxes();
-//     displayController.reset();
-// })();
-
-// const Player = (tag) => {
-//     const name = `Player ${tag}`;
-
-// };
