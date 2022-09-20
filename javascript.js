@@ -33,6 +33,23 @@ const gameController = (() => {
     let playerWinner = '';
 
     const turnContainer = document.getElementById("turn-display");
+    const resetButton = document.getElementById("reset");
+
+    const setResetButton = () => {
+        resetButton.addEventListener('click', resetGame);
+    }
+
+    const resetGame = () => {
+        gameBoard.gameBoardArray.forEach(box => {
+            box.textContent = '';
+        })
+        isEnded = false;
+        playerWinner = '';
+        playerTurn = 0;
+        displayTurn(player1);
+        playGame();
+
+    }
 
     const displayTurn = (player) => {
         turnContainer.textContent = `Player ${player.getMarker()}'s turn`;
@@ -95,7 +112,7 @@ const gameController = (() => {
 
     }
 
-    const markBoard = () => {
+    const playGame = () => {
         gameBoard.gameBoardArray.forEach(box => {
             box.addEventListener('click', function addEvent() {
 
@@ -112,7 +129,8 @@ const gameController = (() => {
         })
     }
 
-    markBoard();
+    playGame();
+    setResetButton();
 
 })();
 
