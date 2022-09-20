@@ -1,34 +1,61 @@
 //Goal is to have little to no global variables or functions
 
-//gameBoard contains the literal gameboard and functions for the gameboard
-
-//gameBoard will be an object with an array of objects to display each square
-//when a square is clicked, player will mark it and will turn it into isMarked
-// when a pattern of isMarked is true, look for a winner
-
-//to win, there are two conditions
-//1. Player has to atleast placed 3 markers
-//2. Player has to have placed 3 markers in certain orders
-
 const Player = marker => {
-    var moveCounter = 0;
 
     const getMarker = () => {
         return marker;
     }
 
-    const countMoves = () => {
-        if (gameBoard.gameBoardArray[x].textContent === 'X') {
-            moveCounter++;
+    const winGame = () => {
+        //All win conditions
+        if (gameBoard.gameBoardArray[0].textContent === marker && gameBoard.gameBoardArray[1].textContent === marker &&
+        gameBoard.gameBoardArray[2].textContent === marker) {
+            console.log(`Player ${marker} wins!`);
         }
+
+        if (gameBoard.gameBoardArray[3].textContent === marker && gameBoard.gameBoardArray[4].textContent === marker &&
+            gameBoard.gameBoardArray[5].textContent === marker) {
+                console.log(`Player ${marker} wins!`);
+            }
+
+        if (gameBoard.gameBoardArray[6].textContent === marker && gameBoard.gameBoardArray[7].textContent === marker &&
+            gameBoard.gameBoardArray[8].textContent === marker) {
+                console.log(`Player ${marker} wins!`);
+            }
+        if (gameBoard.gameBoardArray[0].textContent === marker && gameBoard.gameBoardArray[3].textContent === marker &&
+            gameBoard.gameBoardArray[6].textContent === marker) {
+                console.log(`Player ${marker} wins!`);
+            }
+    
+        if (gameBoard.gameBoardArray[1].textContent === marker && gameBoard.gameBoardArray[4].textContent === marker &&
+            gameBoard.gameBoardArray[7].textContent === marker) {
+                console.log(`Player ${marker} wins!`);
+            }
+
+        if (gameBoard.gameBoardArray[2].textContent === marker && gameBoard.gameBoardArray[5].textContent === marker &&
+            gameBoard.gameBoardArray[8].textContent === marker) {
+                console.log(`Player ${marker} wins!`);
+            }
+        
+        if (gameBoard.gameBoardArray[0].textContent === marker && gameBoard.gameBoardArray[4].textContent === marker &&
+            gameBoard.gameBoardArray[8].textContent === marker) {
+                console.log(`Player ${marker} wins!`);
+            }
+
+        if (gameBoard.gameBoardArray[2].textContent === marker && gameBoard.gameBoardArray[4].textContent === marker &&
+            gameBoard.gameBoardArray[6].textContent === marker) {
+                console.log(`Player ${marker} wins!`);
+            }
+
     }
 
-    return {getMarker, countMoves};
+    return {getMarker, winGame};
 
 };
 const gameBoard = (() => {
     const gamebox = document.getElementById("game-box");
-    const gameBoardArray = gamebox.querySelectorAll('div');
+    let gameBoardArray = gamebox.querySelectorAll('div');
+
 
     return {gameBoardArray}
     
@@ -46,24 +73,24 @@ const gameController = (() => {
     const markBoard = () => {
         gameBoard.gameBoardArray.forEach(box => {
             box.addEventListener('click', function addEvent() {
-                if (playerTurn === 0) {
-                    box.textContent = player1.getMarker();
-                    changePlayerTurn();
-                }
+            if (playerTurn === 0) {
+                box.textContent = player1.getMarker();
+                player1.winGame();
+            }
+    
+            else {
+                box.textContent = player2.getMarker();
+                player2.winGame();
+            
+            }
 
-                else {
-                    box.textContent = player2.getMarker();
-                    changePlayerTurn();
-                }
+            changePlayerTurn();
             box.removeEventListener('click', addEvent);
+
             })
         })
     }
 
-    const checkWinner = () => {
-        for (let x = 0; x < 5; x++) {
-        }
-    }
     markBoard();
 
 })();
