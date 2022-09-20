@@ -8,54 +8,10 @@ const Player = marker => {
 
     const playerMove = (box) => {
         box.textContent = marker;
-        checkWinGame();
         return box.textContent;
     }
 
-    const checkWinGame = () => {
-        //All win conditions
-        if (gameBoard.gameBoardArray[0].textContent === marker && gameBoard.gameBoardArray[1].textContent === marker &&
-        gameBoard.gameBoardArray[2].textContent === marker) {
-            console.log(`Player ${marker} wins!`);
-        }
-
-        if (gameBoard.gameBoardArray[3].textContent === marker && gameBoard.gameBoardArray[4].textContent === marker &&
-            gameBoard.gameBoardArray[5].textContent === marker) {
-                console.log(`Player ${marker} wins!`);
-            }
-
-        if (gameBoard.gameBoardArray[6].textContent === marker && gameBoard.gameBoardArray[7].textContent === marker &&
-            gameBoard.gameBoardArray[8].textContent === marker) {
-                console.log(`Player ${marker} wins!`);
-            }
-        if (gameBoard.gameBoardArray[0].textContent === marker && gameBoard.gameBoardArray[3].textContent === marker &&
-            gameBoard.gameBoardArray[6].textContent === marker) {
-                console.log(`Player ${marker} wins!`);
-            }
-    
-        if (gameBoard.gameBoardArray[1].textContent === marker && gameBoard.gameBoardArray[4].textContent === marker &&
-            gameBoard.gameBoardArray[7].textContent === marker) {
-                console.log(`Player ${marker} wins!`);
-            }
-
-        if (gameBoard.gameBoardArray[2].textContent === marker && gameBoard.gameBoardArray[5].textContent === marker &&
-            gameBoard.gameBoardArray[8].textContent === marker) {
-                console.log(`Player ${marker} wins!`);
-            }
-        
-        if (gameBoard.gameBoardArray[0].textContent === marker && gameBoard.gameBoardArray[4].textContent === marker &&
-            gameBoard.gameBoardArray[8].textContent === marker) {
-                console.log(`Player ${marker} wins!`);
-            }
-
-        if (gameBoard.gameBoardArray[2].textContent === marker && gameBoard.gameBoardArray[4].textContent === marker &&
-            gameBoard.gameBoardArray[6].textContent === marker) {
-                console.log(`Player ${marker} wins!`);
-            }
-
-    }
-
-    return {getMarker, playerMove, checkWinGame};
+    return {getMarker, playerMove};
 
 };
 const gameBoard = (() => {
@@ -73,19 +29,72 @@ const gameController = (() => {
     const player1 = Player('X');
     const player2 = Player('O');
     let playerTurn = 0;
+    let isEnded = false;
 
     const changePlayerTurn = () => playerTurn === 0 ? playerTurn = 1 : playerTurn = 0;
 
-    //If a player wins, all the other boxes get their events removed
+    const checkWinGame = (player) => {
+        //All win conditions
+        if (gameBoard.gameBoardArray[0].textContent === player.getMarker() && gameBoard.gameBoardArray[1].textContent === player.getMarker() &&
+        gameBoard.gameBoardArray[2].textContent === player.getMarker()) {
+            console.log(`Player ${player.getMarker()} wins!`);
+            isEnded = true;
+            
+        }
 
-    //Currently, boxes have their event removed after they are clicked
+        if (gameBoard.gameBoardArray[3].textContent === player.getMarker() && gameBoard.gameBoardArray[4].textContent === player.getMarker() &&
+            gameBoard.gameBoardArray[5].textContent === player.getMarker()) {
+                console.log(`Player ${player.getMarker()} wins!`);
+                isEnded = true;
+            }
+
+        if (gameBoard.gameBoardArray[6].textContent === player.getMarker() && gameBoard.gameBoardArray[7].textContent === player.getMarker() &&
+            gameBoard.gameBoardArray[8].textContent === player.getMarker()) {
+                console.log(`Player ${player.getMarker()} wins!`);
+                isEnded = true;
+            }
+        if (gameBoard.gameBoardArray[0].textContent === player.getMarker() && gameBoard.gameBoardArray[3].textContent === player.getMarker() &&
+            gameBoard.gameBoardArray[6].textContent === player.getMarker()) {
+                console.log(`Player ${player.getMarker()} wins!`);
+                isEnded = true;
+            }
+    
+        if (gameBoard.gameBoardArray[1].textContent === player.getMarker() && gameBoard.gameBoardArray[4].textContent === player.getMarker() &&
+            gameBoard.gameBoardArray[7].textContent === player.getMarker()) {
+                console.log(`Player ${player.getMarker()} wins!`);
+                isEnded = true;
+            }
+
+        if (gameBoard.gameBoardArray[2].textContent === player.getMarker() && gameBoard.gameBoardArray[5].textContent === player.getMarker() &&
+            gameBoard.gameBoardArray[8].textContent === player.getMarker()) {
+                console.log(`Player ${player.getMarker()} wins!`);
+                isEnded = true;
+            }
+        
+        if (gameBoard.gameBoardArray[0].textContent === player.getMarker() && gameBoard.gameBoardArray[4].textContent === player.getMarker() &&
+            gameBoard.gameBoardArray[8].textContent === player.getMarker()) {
+                console.log(`Player ${player.getMarker()} wins!`);
+                isEnded = true;
+            }
+
+        if (gameBoard.gameBoardArray[2].textContent === player.getMarker() && gameBoard.gameBoardArray[4].textContent === player.getMarker() &&
+            gameBoard.gameBoardArray[6].textContent === player.getMarker()) {
+                console.log(`Player ${player.getMarker()} wins!`);
+                isEnded = true;
+            }
+
+    }
+
     const markBoard = () => {
         gameBoard.gameBoardArray.forEach(box => {
             box.addEventListener('click', function addEvent() {
 
-            playerTurn === 0 ? player1.playerMove(box) : player2.playerMove(box);
+            if (isEnded === false) {
+                playerTurn === 0 ? player1.playerMove(box) : player2.playerMove(box);
+                playerTurn === 0 ? checkWinGame(player1) : checkWinGame(player2);
+                changePlayerTurn();
+            }
 
-            changePlayerTurn();
             box.removeEventListener('click', addEvent);
 
             })
