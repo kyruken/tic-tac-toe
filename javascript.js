@@ -17,9 +17,23 @@ const Player = marker => {
 const gameBoard = (() => {
     const gamebox = document.getElementById("game-box");
     let gameBoardArray = gamebox.querySelectorAll('div');
+    let newCopy = gameBoardArray;
+
+    const deleteCurrentGameBoard = () => {
+        for (let x = 0; x < gameBoardArray.length; x++) {
+            let selectedDiv = document.getElementById(`${x}`);
+            gamebox.removeChild(selectedDiv);
+        }
+    }
+    const createNewGameBoard = () => {
+        for (let x = 0; x < gameBoardArray.length; x++) {
+            let newDiv = newCopy[x];
+            gamebox.appendChild(newDiv);
+        }
+    }
 
 
-    return {gameBoardArray}
+    return {gameBoardArray, createNewGameBoard, deleteCurrentGameBoard}
     
 })();
 
@@ -38,9 +52,8 @@ const gameController = (() => {
     }
 
     const resetGame = () => {
-        gameBoard.gameBoardArray.forEach(box => {
-            box.textContent = '';
-        })
+        deleteCurrentGameBoard();
+        
         isEnded = false;
         playerWinner = '';
         playerTurn = 0;
