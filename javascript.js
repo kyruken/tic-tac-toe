@@ -16,19 +16,21 @@ const Player = marker => {
 };
 const gameBoard = (() => {
     const gamebox = document.getElementById("game-box");
-    let gameBoardArray = gamebox.querySelectorAll('div');
-    let newCopy = gameBoardArray;
+    const gameBoardArray = [];
 
     const deleteCurrentGameBoard = () => {
-        for (let x = 0; x < gameBoardArray.length; x++) {
-            let selectedDiv = document.getElementById(`${x}`);
-            gamebox.removeChild(selectedDiv);
+        for (let x = 0; x < 9; x++) {
+            gamebox.removeChild(gameBoardArray[x]);
+            gameBoardArray[x] = null;
         }
     }
+
     const createNewGameBoard = () => {
-        for (let x = 0; x < gameBoardArray.length; x++) {
-            let newDiv = newCopy[x];
-            gamebox.appendChild(newDiv);
+        for (let x = 0; x < 9; x++) {
+            let gameDiv = document.createElement('div');
+            gameDiv.classList.add('ttt-box');
+            gameBoardArray[x] = gameDiv;
+            gamebox.appendChild(gameBoardArray[x]);
         }
     }
 
@@ -52,8 +54,8 @@ const gameController = (() => {
     }
 
     const resetGame = () => {
-        deleteCurrentGameBoard();
-        
+        gameBoard.deleteCurrentGameBoard();
+        gameBoard.createNewGameBoard();
         isEnded = false;
         playerWinner = '';
         playerTurn = 0;
@@ -123,6 +125,7 @@ const gameController = (() => {
 
     }
 
+    
     const playGame = () => {
         gameBoard.gameBoardArray.forEach(box => {
             box.addEventListener('click', function addEvent() {
@@ -140,7 +143,9 @@ const gameController = (() => {
         })
     }
 
+    gameBoard.createNewGameBoard();
     playGame();
+    displayTurn(player1);
     setResetButton();
 
 })();
